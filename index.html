@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Cakeopera – Premium Cakes, Cheesecakes & Online Ordering</title>
-  <meta name="description" content="Cakeopera – bakery & cake brand specialising in cheesecakes, chocolate & truffle cakes with online ordering and delivery."/>
+  <meta name="description" content="Cakeopera – bakery & cake brand specialising in cheesecakes, chocolate & truffle cakes with online ordering and delivery.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -22,9 +22,10 @@
   </header>
 
   <main id="top">
+    <!-- HERO -->
     <section class="hero">
       <div class="hero-text">
-        <h1>Premium Cheesecakes, Chocolate & Truffle Cakes</h1>
+        <h1>Premium Cheesecakes, Chocolate &amp; Truffle Cakes</h1>
         <p>The best bakery experience – freshly baked, handcrafted, and delivered fast. Order online from Cakeopera, your city’s favourite cake brand.</p>
         <div class="hero-actions">
           <a href="#order" class="btn btn-primary">Order Online</a>
@@ -32,162 +33,230 @@
         </div>
       </div>
       <div class="hero-media">
-        <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/sTqgyISMZpDCC7i4g5Rt5u3zEiDqbGW3wZV3x3r9.jpg" alt="Cakeopera cheesecake">
+        <!-- if this image ever breaks, you can replace src with any other URL or local file in images/ -->
+        <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/HEbKmUaDlzpNWh8rKgeivyxqpEK62rblDdqwUdFN.jpg" alt="Cakeopera signature dessert">
       </div>
     </section>
 
+    <!-- MENU -->
     <section id="menu" class="section">
       <h2>Our Menu</h2>
       <p class="section-intro">
-        Explore our Cakeopera signatures – cheesecakes, indulgent chocolate & truffle cakes, jars, pastries and more. Everything is baked fresh and available for online ordering.
+        Explore our Cakeopera signatures – cheesecakes, indulgent chocolate &amp; truffle cakes, jars and pastries. Everything is baked fresh and available for online ordering.
       </p>
 
+      <!-- Whole Cheesecakes -->
       <div class="menu-category">
         <h3>Whole Cheesecakes</h3>
         <div class="cards">
-          <div class="card">
+          <div class="card" data-product-name="Baked New York Cheesecake (1 Kg)">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/sTqgyISMZpDCC7i4g5Rt5u3zEiDqbGW3wZV3x3r9.jpg" alt="Baked New York Cheesecake (1 Kg)">
             <h4>Baked New York Cheesecake (1 Kg)</h4>
             <p>Classic New York-style baked cheesecake with a creamy, rich texture and golden crust.</p>
             <div class="meta-row">
               <span class="price">₹1890</span>
-              <span class="tag veg">Veg</span>
+              <span class="tag veg">VEG</span>
+            </div>
+            <div class="card-actions">
+              <a class="btn-link swiggy-link" href="#" target="_blank" rel="noopener">Swiggy</a>
+              <a class="btn-link zomato-link" href="#" target="_blank" rel="noopener">Zomato</a>
             </div>
           </div>
-          <div class="card">
+
+          <div class="card" data-product-name="Blueberry Cheesecake (1 Kg)">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/7tECOTJgyzMlhq5bPDd3gZcZ2mY98AzsoKrJMWY6.jpg" alt="Blueberry Cheesecake (1 Kg)">
             <h4>Blueberry Cheesecake (1 Kg)</h4>
             <p>Smooth baked cheesecake topped with a generous swirl of fresh blueberry compote.</p>
             <div class="meta-row">
               <span class="price">₹1990</span>
-              <span class="tag veg">Veg</span>
+              <span class="tag veg">VEG</span>
+            </div>
+            <div class="card-actions">
+              <a class="btn-link swiggy-link" href="#" target="_blank" rel="noopener">Swiggy</a>
+              <a class="btn-link zomato-link" href="#" target="_blank" rel="noopener">Zomato</a>
             </div>
           </div>
-          <div class="card">
+
+          <div class="card" data-product-name="Biscoff Cheesecake (1 Kg)">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/hcv7FhgJmioQCr5h2eJzVQmsCSCW4ctJ6CQe8zf2.jpg" alt="Biscoff Cheesecake (1 Kg)">
             <h4>Biscoff Cheesecake (1 Kg)</h4>
             <p>Decadent Biscoff cheesecake layered with cookie butter and a buttery biscuit base.</p>
             <div class="meta-row">
               <span class="price">₹2090</span>
-              <span class="tag veg">Veg</span>
+              <span class="tag veg">VEG</span>
+            </div>
+            <div class="card-actions">
+              <a class="btn-link swiggy-link" href="#" target="_blank" rel="noopener">Swiggy</a>
+              <a class="btn-link zomato-link" href="#" target="_blank" rel="noopener">Zomato</a>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- Cheesecake Slices -->
       <div class="menu-category">
         <h3>Cheesecake Slices</h3>
         <div class="cards">
-          <div class="card">
+          <div class="card" data-product-name="Baked New York Cheese Slice">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/wTKb0bU8nl5J6OJbo3aE8fTxrIzxk3vwlxopslz3.jpg" alt="Baked New York Cheese Slice">
             <h4>Baked New York Cheese Slice</h4>
             <p>Classic New York-style baked cheesecake with a creamy, rich texture and golden crust.</p>
             <div class="meta-row">
               <span class="price">₹259</span>
-              <span class="tag veg">Veg</span>
+              <span class="tag veg">VEG</span>
+            </div>
+            <div class="card-actions">
+              <a class="btn-link swiggy-link" href="#" target="_blank" rel="noopener">Swiggy</a>
+              <a class="btn-link zomato-link" href="#" target="_blank" rel="noopener">Zomato</a>
             </div>
           </div>
-          <div class="card">
+
+          <div class="card" data-product-name="Biscoff Cheese Cake Slice">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/hgziCo5k7Bl8Of8TXPY7PGYOyj2GpkcrLxbruaQH.jpg" alt="Biscoff Cheese Cake Slice">
             <h4>Biscoff Cheese Cake Slice</h4>
             <p>Decadent Biscoff cheesecake layered with cookie butter and a buttery biscuit base.</p>
             <div class="meta-row">
               <span class="price">₹289</span>
-              <span class="tag veg">Veg</span>
+              <span class="tag veg">VEG</span>
+            </div>
+            <div class="card-actions">
+              <a class="btn-link swiggy-link" href="#" target="_blank" rel="noopener">Swiggy</a>
+              <a class="btn-link zomato-link" href="#" target="_blank" rel="noopener">Zomato</a>
             </div>
           </div>
-          <div class="card">
+
+          <div class="card" data-product-name="Blueberry Cheese Cake Slice">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/1IpRXHoxAWd5XjPeM3nKqL9jNKjAkkskQYelP9t7.jpg" alt="Blueberry Cheese Cake Slice">
             <h4>Blueberry Cheese Cake Slice</h4>
             <p>Smooth cheesecake topped with a generous swirl of fresh blueberry compote.</p>
             <div class="meta-row">
               <span class="price">₹289</span>
-              <span class="tag veg">Veg</span>
+              <span class="tag veg">VEG</span>
+            </div>
+            <div class="card-actions">
+              <a class="btn-link swiggy-link" href="#" target="_blank" rel="noopener">Swiggy</a>
+              <a class="btn-link zomato-link" href="#" target="_blank" rel="noopener">Zomato</a>
             </div>
           </div>
-          <div class="card">
+
+          <div class="card" data-product-name="Nutella Cheese Cake Slice">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/o7LsID0PTK0h9QkOnvoYO9eG23SXtc2sXqQtef02.jpg" alt="Nutella Cheese Cake Slice">
             <h4>Nutella Cheese Cake Slice</h4>
             <p>Luscious, creamy cheesecake swirled with rich Nutella for a perfect chocolate-hazelnut delight.</p>
             <div class="meta-row">
               <span class="price">₹289</span>
-              <span class="tag veg">Veg</span>
+              <span class="tag veg">VEG</span>
+            </div>
+            <div class="card-actions">
+              <a class="btn-link swiggy-link" href="#" target="_blank" rel="noopener">Swiggy</a>
+              <a class="btn-link zomato-link" href="#" target="_blank" rel="noopener">Zomato</a>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- Jar Cakes -->
       <div class="menu-category">
         <h3>Jar Cakes</h3>
         <div class="cards">
-          <div class="card">
+          <div class="card" data-product-name="Biscoff Cheese Jar (200 Ml)">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/HEbKmUaDlzpNWh8rKgeivyxqpEK62rblDdqwUdFN.jpg" alt="Biscoff Cheese Jar (200 Ml)">
             <h4>Biscoff Cheese Jar (200 Ml)</h4>
             <p>Decadent Biscoff cheesecake jar layered with cookie butter and a buttery biscuit base.</p>
             <div class="meta-row">
               <span class="price">₹319</span>
-              <span class="tag veg">Veg</span>
+              <span class="tag veg">VEG</span>
+            </div>
+            <div class="card-actions">
+              <a class="btn-link swiggy-link" href="#" target="_blank" rel="noopener">Swiggy</a>
+              <a class="btn-link zomato-link" href="#" target="_blank" rel="noopener">Zomato</a>
             </div>
           </div>
-          <div class="card">
+
+          <div class="card" data-product-name="Blueberry Cheesecake Jar (200 Ml)">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/REWNatGZVn3t4PmxjQSSUWdarNHtYxBerfFj6pA2.jpg" alt="Blueberry Cheesecake Jar (200 Ml)">
             <h4>Blueberry Cheesecake Jar (200 Ml)</h4>
             <p>Smooth cheesecake jar topped with a generous swirl of fresh blueberry compote.</p>
             <div class="meta-row">
               <span class="price">₹319</span>
-              <span class="tag veg">Veg</span>
+              <span class="tag veg">VEG</span>
+            </div>
+            <div class="card-actions">
+              <a class="btn-link swiggy-link" href="#" target="_blank" rel="noopener">Swiggy</a>
+              <a class="btn-link zomato-link" href="#" target="_blank" rel="noopener">Zomato</a>
             </div>
           </div>
-          <div class="card">
+
+          <div class="card" data-product-name="Nutella Cheesecake Jar (200 Ml)">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/dZcJENL6ArEUNROVBWv3CZCMx9avQ8i7oTlNPm3R.jpg" alt="Nutella Cheesecake Jar (200 Ml)">
             <h4>Nutella Cheesecake Jar (200 Ml)</h4>
             <p>Creamy cheesecake in a jar swirled with rich Nutella and layers of chocolate goodness.</p>
             <div class="meta-row">
               <span class="price">₹319</span>
-              <span class="tag veg">Veg</span>
+              <span class="tag veg">VEG</span>
+            </div>
+            <div class="card-actions">
+              <a class="btn-link swiggy-link" href="#" target="_blank" rel="noopener">Swiggy</a>
+              <a class="btn-link zomato-link" href="#" target="_blank" rel="noopener">Zomato</a>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- Pastries -->
       <div class="menu-category">
         <h3>Pastries</h3>
         <div class="cards">
-          <div class="card">
+          <div class="card" data-product-name="Chocolate Pastry">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/3wUoHhXA1RaOHA8H5Mit9dy1ef9gUI4fmc5evG5L.jpg" alt="Chocolate Pastry">
             <h4>Chocolate Pastry</h4>
             <p>Decadent chocolate pastry crafted with premium cocoa and silky chocolate cream.</p>
             <div class="meta-row">
               <span class="price">₹119</span>
-              <span class="tag veg">Veg</span>
+              <span class="tag veg">VEG</span>
+            </div>
+            <div class="card-actions">
+              <a class="btn-link swiggy-link" href="#" target="_blank" rel="noopener">Swiggy</a>
+              <a class="btn-link zomato-link" href="#" target="_blank" rel="noopener">Zomato</a>
             </div>
           </div>
-          <div class="card">
+
+          <div class="card" data-product-name="Black Forest Pastry">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/3mzHnvQ2slxGk3HneWwFUTpLQo3uHQpQE15ojKUz.jpg" alt="Black Forest Pastry">
             <h4>Black Forest Pastry</h4>
             <p>Classic Black Forest pastry with layers of chocolate sponge, whipped cream and cherries.</p>
             <div class="meta-row">
               <span class="price">₹119</span>
-              <span class="tag veg">Veg</span>
+              <span class="tag veg">VEG</span>
+            </div>
+            <div class="card-actions">
+              <a class="btn-link swiggy-link" href="#" target="_blank" rel="noopener">Swiggy</a>
+              <a class="btn-link zomato-link" href="#" target="_blank" rel="noopener">Zomato</a>
             </div>
           </div>
-          <div class="card">
+
+          <div class="card" data-product-name="Pineapple Pastry">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/3rjQ4zUGwblA4egXM6xTybCCQeRaN2kHfQQVyZVu.jpg" alt="Pineapple Pastry">
             <h4>Pineapple Pastry</h4>
             <p>Soft vanilla sponge layered with pineapple compote and fresh cream.</p>
             <div class="meta-row">
               <span class="price">₹109</span>
-              <span class="tag veg">Veg</span>
+              <span class="tag veg">VEG</span>
+            </div>
+            <div class="card-actions">
+              <a class="btn-link swiggy-link" href="#" target="_blank" rel="noopener">Swiggy</a>
+              <a class="btn-link zomato-link" href="#" target="_blank" rel="noopener">Zomato</a>
             </div>
           </div>
         </div>
       </div>
 
       <p class="section-intro small">
-        *This is a highlighted menu. You can easily add more categories like brownies, celebration cakes, dry cakes, combos and more by copying the same card pattern.
+        *This is a highlighted menu. You can add more categories and items later by copying the same card pattern.
       </p>
     </section>
 
+    <!-- GALLERY -->
     <section id="gallery" class="section">
       <h2>Gallery</h2>
       <div class="gallery">
@@ -198,24 +267,32 @@
       </div>
     </section>
 
+    <!-- ORDER -->
     <section id="order" class="section order-section">
       <h2>Order Online</h2>
       <p class="section-intro">
         Order Cakeopera on Swiggy and Zomato for fast delivery, or reach out to us directly for custom cakes and large party orders.
       </p>
-      <div class="order-buttons">
-        <a class="btn btn-primary" href="https://www.swiggy.com" target="_blank" rel="noopener">Order on Swiggy</a>
-        <a class="btn btn-outline" href="https://www.zomato.com" target="_blank" rel="noopener">Order on Zomato</a>
+      <div class="order-platforms">
+        <a class="platform-card" id="order-swiggy" href="#" target="_blank" rel="noopener">
+          <div class="platform-logo platform-swiggy"></div>
+          <span>Order on Swiggy</span>
+        </a>
+        <a class="platform-card" id="order-zomato" href="#" target="_blank" rel="noopener">
+          <div class="platform-logo platform-zomato"></div>
+          <span>Order on Zomato</span>
+        </a>
       </div>
     </section>
 
+    <!-- CONTACT -->
     <section id="contact" class="section contact-section">
       <h2>Contact</h2>
       <p class="section-intro">
-        Sector XX, Mohali / Chandigarh • Open 9 AM – 9 PM daily.
+        Omax Mall, First Floor, Sector 49, Gurgaon, Haryana - 122001
       </p>
       <p class="section-intro">
-        Call / WhatsApp: <a href="tel:+9198XXXXXX90">+91 98XXXXXX90</a>
+        Call / WhatsApp: <a href="tel:+917303361781">+91-7303361781</a>
       </p>
     </section>
   </main>
@@ -223,6 +300,9 @@
   <footer>
     <p>© <span id="year"></span> Cakeopera – Freshly Crafted With Love</p>
   </footer>
+
+  <!-- Floating Order Now button -->
+  <a href="#order" class="order-fab">Order<br>Now</a>
 
   <script src="script.js"></script>
 </body>
