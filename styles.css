@@ -43,6 +43,8 @@ nav a{
 nav a:hover{
   opacity:0.8;
 }
+
+/* HERO */
 .hero{
   padding:60px 28px 40px;
   display:flex;
@@ -73,6 +75,8 @@ nav a:hover{
   flex-wrap:wrap;
   gap:12px;
 }
+
+/* BUTTONS */
 .btn{
   display:inline-block;
   padding:10px 18px;
@@ -90,6 +94,8 @@ nav a:hover{
   color:#e05572;
   background:transparent;
 }
+
+/* SECTIONS */
 .section{
   padding:40px 28px;
   max-width:1150px;
@@ -110,6 +116,8 @@ nav a:hover{
   font-size:0.85rem;
   color:#777;
 }
+
+/* MENU */
 .menu-category{
   margin-bottom:40px;
 }
@@ -175,6 +183,33 @@ nav a:hover{
   border-color:#c62828;
   color:#c62828;
 }
+
+/* Card Swiggy/Zomato buttons */
+.card-actions{
+  margin-top:10px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.btn-link{
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid #e0e0e0;
+  font-size:0.8rem;
+  text-decoration:none;
+  color:#444;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+.btn-link.swiggy-link{
+  border-color:#fc8019;
+}
+.btn-link.zomato-link{
+  border-color:#e23744;
+}
+
+/* GALLERY */
 .gallery{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
@@ -187,12 +222,41 @@ nav a:hover{
   border-radius:12px;
   box-shadow:0 4px 16px rgba(0,0,0,0.12);
 }
-.order-section .order-buttons{
+
+/* ORDER SECTION */
+.order-platforms{
   display:flex;
   justify-content:center;
-  gap:14px;
+  gap:18px;
   flex-wrap:wrap;
 }
+.platform-card{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 16px;
+  border-radius:999px;
+  border:1px solid rgba(0,0,0,0.06);
+  background:#fff;
+  box-shadow:0 6px 16px rgba(0,0,0,0.06);
+  text-decoration:none;
+  color:#333;
+  font-weight:600;
+  font-size:0.95rem;
+}
+.platform-logo{
+  width:26px;
+  height:26px;
+  border-radius:999px;
+}
+.platform-swiggy{
+  background:#fc8019;
+}
+.platform-zomato{
+  background:#e23744;
+}
+
+/* CONTACT */
 .contact-section a{
   color:#e05572;
   text-decoration:none;
@@ -200,6 +264,26 @@ nav a:hover{
 .contact-section a:hover{
   text-decoration:underline;
 }
+
+/* FLOATING ORDER BUTTON */
+.order-fab{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  background:#e05572;
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+  font-size:0.8rem;
+  padding:10px 12px;
+  border-radius:999px;
+  box-shadow:0 10px 26px rgba(0,0,0,0.25);
+  text-align:center;
+  line-height:1.2;
+  z-index:80;
+}
+
+/* FOOTER */
 footer{
   padding:20px 10px 28px;
   text-align:center;
@@ -207,7 +291,7 @@ footer{
   font-size:0.85rem;
 }
 
-/* Responsive */
+/* RESPONSIVE */
 @media (max-width:720px){
   header{
     flex-direction:column;
@@ -220,6 +304,7 @@ footer{
   }
   .hero{
     padding-top:30px;
+    flex-direction:column;
   }
   .hero-text h1{
     font-size:1.7rem;
