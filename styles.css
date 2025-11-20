@@ -6,11 +6,13 @@ body{
   line-height:1.5;
   -webkit-font-smoothing:antialiased;
 }
+
+/* HEADER */
 header{
   position:sticky;
   top:0;
   z-index:50;
-  background:rgba(255,255,255,0.9);
+  background:rgba(255,255,255,0.95);
   backdrop-filter:blur(10px);
   display:flex;
   justify-content:space-between;
@@ -209,6 +211,45 @@ nav a:hover{
   border-color:#e23744;
 }
 
+/* SEARCH + FILTERS */
+.menu-controls{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin:0 0 16px;
+}
+#menu-search{
+  flex:1 1 220px;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid rgba(0,0,0,0.12);
+  font-size:0.9rem;
+  outline:none;
+}
+#menu-search:focus{
+  border-color:#e05572;
+}
+.filter-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.chip{
+  border-radius:999px;
+  border:1px solid rgba(0,0,0,0.15);
+  background:#fff;
+  padding:6px 10px;
+  font-size:0.8rem;
+  cursor:pointer;
+}
+.chip.active{
+  background:#e05572;
+  color:#fff;
+  border-color:#e05572;
+}
+
 /* GALLERY */
 .gallery{
   display:grid;
@@ -256,7 +297,63 @@ nav a:hover{
   background:#e23744;
 }
 
-/* CONTACT */
+/* ABOUT PAGE */
+.about-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:18px;
+  margin-top:10px;
+}
+.about-card{
+  background:#fff;
+  border-radius:16px;
+  padding:16px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.06);
+}
+.about-card h3{
+  margin-top:0;
+}
+
+/* CONTACT PAGE */
+.contact-layout{
+  display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(0,1.2fr);
+  gap:24px;
+}
+.contact-details{
+  background:#fff;
+  border-radius:16px;
+  padding:16px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.06);
+}
+.contact-form-card{
+  background:#fff;
+  border-radius:16px;
+  padding:16px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.06);
+}
+.contact-form-card form{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.contact-form-card input,
+.contact-form-card textarea{
+  width:100%;
+  margin-top:4px;
+  padding:8px 10px;
+  border-radius:8px;
+  border:1px solid rgba(0,0,0,0.16);
+  font-size:0.9rem;
+  font-family:inherit;
+}
+.contact-form-card input:focus,
+.contact-form-card textarea:focus{
+  border-color:#e05572;
+  outline:none;
+}
+
+/* CONTACT LINKS */
 .contact-section a{
   color:#e05572;
   text-decoration:none;
@@ -265,7 +362,7 @@ nav a:hover{
   text-decoration:underline;
 }
 
-/* FLOATING ORDER BUTTON */
+/* FLOATING BUTTONS */
 .order-fab{
   position:fixed;
   right:18px;
@@ -282,6 +379,20 @@ nav a:hover{
   line-height:1.2;
   z-index:80;
 }
+.whatsapp-fab{
+  position:fixed;
+  left:18px;
+  bottom:18px;
+  background:#25d366;
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+  font-size:0.8rem;
+  padding:10px 14px;
+  border-radius:999px;
+  box-shadow:0 10px 26px rgba(0,0,0,0.25);
+  z-index:81;
+}
 
 /* FOOTER */
 footer{
@@ -292,6 +403,11 @@ footer{
 }
 
 /* RESPONSIVE */
+@media (max-width:900px){
+  .contact-layout{
+    grid-template-columns:1fr;
+  }
+}
 @media (max-width:720px){
   header{
     flex-direction:column;
@@ -308,5 +424,9 @@ footer{
   }
   .hero-text h1{
     font-size:1.7rem;
+  }
+  .menu-controls{
+    flex-direction:column;
+    align-items:stretch;
   }
 }
