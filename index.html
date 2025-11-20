@@ -9,15 +9,17 @@
 </head>
 <body>
   <header>
-    <a class="brand" href="#top">
+    <a class="brand" href="index.html">
       <img src="images/logo.png" alt="Cakeopera logo">
       <span>Cakeopera</span>
     </a>
     <nav>
-      <a href="#menu">Menu</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#order">Order</a>
-      <a href="#contact">Contact</a>
+      <a href="index.html#menu">Menu</a>
+      <a href="index.html#gallery">Gallery</a>
+      <!-- New pages (you can add about.html & contact.html files later) -->
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="index.html#order">Order</a>
     </nav>
   </header>
 
@@ -45,11 +47,26 @@
         Explore our Cakeopera signatures – cheesecakes, indulgent chocolate &amp; truffle cakes, jars and pastries. Everything is baked fresh and available for online ordering.
       </p>
 
+      <!-- SEARCH + FILTERS -->
+      <div class="menu-controls">
+        <input
+          type="text"
+          id="menu-search"
+          placeholder="Search for a cake, flavour or item… (e.g. Nutella, Biscoff)"
+        >
+        <div class="filter-chips">
+          <button class="chip active" data-filter="all">All</button>
+          <button class="chip" data-filter="cheesecakes">Cheesecakes</button>
+          <button class="chip" data-filter="jars">Jar Cakes</button>
+          <button class="chip" data-filter="pastries">Pastries</button>
+        </div>
+      </div>
+
       <!-- Whole Cheesecakes -->
       <div class="menu-category">
         <h3>Whole Cheesecakes</h3>
         <div class="cards">
-          <div class="card" data-product-name="Baked New York Cheesecake (500 Gm)">
+          <div class="card" data-product-name="Baked New York Cheesecake (500 Gm)" data-category="cheesecakes">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/CVinIxupQAUhEZdr52e8kqYYYn4wSXAgTApzzOYt.jpg" alt="Baked New York Cheesecake (500 Gm)">
             <h4>Baked New York Cheesecake (500 Gm)</h4>
             <p>Classic New York-style baked cheesecake with a creamy, rich texture and golden crust.</p>
@@ -63,7 +80,7 @@
             </div>
           </div>
 
-          <div class="card" data-product-name="Blueberry Cheesecake (1 Kg)">
+          <div class="card" data-product-name="Blueberry Cheesecake (1 Kg)" data-category="cheesecakes">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/9XXLsPuZKYUxTdqgbBazTod3EdstJKbyX3pLjZnG.jpg" alt="Blueberry Cheesecake (1 Kg)">
             <h4>Blueberry Cheesecake (1 Kg)</h4>
             <p>Smooth baked cheesecake topped with a generous swirl of fresh blueberry compote.</p>
@@ -77,7 +94,7 @@
             </div>
           </div>
 
-          <div class="card" data-product-name="Biscoff Cheesecake (1 Kg)">
+          <div class="card" data-product-name="Biscoff Cheesecake (1 Kg)" data-category="cheesecakes">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/PXI3C2UYYXGmoE6FZjQdKTQy7ybllSyjwUDF8ZCU.png" alt="Biscoff Cheesecake (1 Kg)">
             <h4>Biscoff Cheesecake (1 Kg)</h4>
             <p>Decadent Biscoff cheesecake layered with cookie butter and a buttery biscuit base.</p>
@@ -97,7 +114,7 @@
       <div class="menu-category">
         <h3>Cheesecake Slices</h3>
         <div class="cards">
-          <div class="card" data-product-name="Baked New York Cheese Slice">
+          <div class="card" data-product-name="Baked New York Cheese Slice" data-category="cheesecakes">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/wTKb0bU8nl5J6OJbo3aE8fTxrIzxk3vwlxopslz3.jpg" alt="Baked New York Cheese Slice">
             <h4>Baked New York Cheese Slice</h4>
             <p>Classic New York-style baked cheesecake with a creamy, rich texture and golden crust.</p>
@@ -111,7 +128,7 @@
             </div>
           </div>
 
-          <div class="card" data-product-name="Biscoff Cheese Cake Slice">
+          <div class="card" data-product-name="Biscoff Cheese Cake Slice" data-category="cheesecakes">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/hgziCo5k7Bl8Of8TXPY7PGYOyj2GpkcrLxbruaQH.jpg" alt="Biscoff Cheese Cake Slice">
             <h4>Biscoff Cheese Cake Slice</h4>
             <p>Decadent Biscoff cheesecake layered with cookie butter and a buttery biscuit base.</p>
@@ -125,7 +142,7 @@
             </div>
           </div>
 
-          <div class="card" data-product-name="Blueberry Cheese Cake Slice">
+          <div class="card" data-product-name="Blueberry Cheese Cake Slice" data-category="cheesecakes">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/3oyuMROsNUTHsrDZwluLNNEwTtEfh8FbgDcADvVK.jpg" alt="Blueberry Cheese Cake Slice">
             <h4>Blueberry Cheese Cake Slice</h4>
             <p>Smooth cheesecake topped with a generous swirl of fresh blueberry compote.</p>
@@ -139,7 +156,7 @@
             </div>
           </div>
 
-          <div class="card" data-product-name="Nutella Cheese Cake Slice">
+          <div class="card" data-product-name="Nutella Cheese Cake Slice" data-category="cheesecakes">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/14Gq9eOgQ6m9i7rZFoyGyptapUFEM7g9OdY888RE.jpg" alt="Nutella Cheese Cake Slice">
             <h4>Nutella Cheese Cake Slice</h4>
             <p>Luscious, creamy cheesecake swirled with rich Nutella for a perfect chocolate-hazelnut delight.</p>
@@ -159,7 +176,7 @@
       <div class="menu-category">
         <h3>Jar Cakes</h3>
         <div class="cards">
-          <div class="card" data-product-name="Biscoff Cheese Jar (200 Ml)">
+          <div class="card" data-product-name="Biscoff Cheese Jar (200 Ml)" data-category="jars">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/HEbKmUaDlzpNWh8rKgeivyxqpEK62rblDdqwUdFN.jpg" alt="Biscoff Cheese Jar (200 Ml)">
             <h4>Biscoff Cheese Jar (200 Ml)</h4>
             <p>Decadent Biscoff cheesecake jar layered with cookie butter and a buttery biscuit base.</p>
@@ -173,7 +190,7 @@
             </div>
           </div>
 
-          <div class="card" data-product-name="Blueberry Cheesecake Jar (200 Ml)">
+          <div class="card" data-product-name="Blueberry Cheesecake Jar (200 Ml)" data-category="jars">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/REWNatGZVn3t4PmxjQSSUWdarNHtYxBerfFj6pA2.jpg" alt="Blueberry Cheesecake Jar (200 Ml)">
             <h4>Blueberry Cheesecake Jar (200 Ml)</h4>
             <p>Smooth cheesecake jar topped with a generous swirl of fresh blueberry compote.</p>
@@ -187,7 +204,7 @@
             </div>
           </div>
 
-          <div class="card" data-product-name="Choco Mud Jar Cake (200 Ml)">
+          <div class="card" data-product-name="Choco Mud Jar Cake (200 Ml)" data-category="jars">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/EGuf1sEe4HWpAtG9nfytzU865oZBHbkFTv26Mk36.jpg" alt="Choco Mud Jar Cake (200 Ml)">
             <h4>Choco Mud Jar Cake (200 Ml)</h4>
             <p>Layered dessert jar, packed with indulgent flavors and perfect for on-the-go cravings.</p>
@@ -207,7 +224,7 @@
       <div class="menu-category">
         <h3>Pastries</h3>
         <div class="cards">
-          <div class="card" data-product-name="Chocolate Pastry">
+          <div class="card" data-product-name="Chocolate Pastry" data-category="pastries">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/h7KzoFmvp9rnJNhIAExczWdPp5CEwYBFsIWqVIbk.jpg" alt="Chocolate Pastry">
             <h4>Chocolate Pastry</h4>
             <p>Decadent chocolate pastry crafted with premium cocoa and silky chocolate cream.</p>
@@ -221,7 +238,7 @@
             </div>
           </div>
 
-          <div class="card" data-product-name="Red Velvet Pastry">
+          <div class="card" data-product-name="Red Velvet Pastry" data-category="pastries">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/Bk7JDLQU0uz4GAWHMYeWKchmIx49mQ186615U43q.jpg" alt="Red Velvet Pastry">
             <h4>Red Velvet Pastry</h4>
             <p>Lush red velvet pastry with a smooth cream cheese frosting and moist sponge layers.</p>
@@ -235,7 +252,7 @@
             </div>
           </div>
 
-          <div class="card" data-product-name="Pineapple Pastry">
+          <div class="card" data-product-name="Pineapple Pastry" data-category="pastries">
             <img src="https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/pO7OMRQunippgqGzJB0bhCZFBO2vl6fFx3EAmr3o.jpg" alt="Pineapple Pastry">
             <h4>Pineapple Pastry</h4>
             <p>Soft vanilla sponge layered with pineapple compote and fresh cream.</p>
@@ -301,8 +318,16 @@
     <p>© <span id="year"></span> Cakeopera – Freshly Crafted With Love</p>
   </footer>
 
-  <!-- Floating Order Now button -->
+  <!-- Floating buttons -->
   <a href="#order" class="order-fab">Order<br>Now</a>
+  <a
+    href="https://wa.me/917303361781?text=Hi%20Cakeopera,%20I%27d%20like%20to%20place%20an%20order"
+    class="whatsapp-fab"
+    target="_blank"
+    rel="noopener"
+  >
+    WhatsApp
+  </a>
 
   <script src="script.js"></script>
 </body>
