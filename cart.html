@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Your Cart — Cakeopera Checkout</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .cart-page{ max-width:1000px; margin:28px auto; padding:0 20px;}
+    .cart-table{ width:100%; border-collapse:collapse; margin-bottom:18px;}
+    .cart-table th, .cart-table td{ padding:12px; text-align:left; border-bottom:1px solid #eee;}
+    .cart-thumb{ width:72px; height:72px; object-fit:cover; border-radius:8px; }
+    .checkout-panel{ background:#fff; padding:14px; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,0.06);}
+    .pay-method label{ margin-right:18px; }
+    .btn-pay{ background:#e05572; color:#fff; border:none; padding:12px 18px; border-radius:10px; cursor:pointer; font-weight:700;}
+  </style>
+</head>
+<body>
+  <header>
+    <a class="brand" href="index.html">
+      <img src="images/logo.png" alt="Cakeopera logo">
+      <span>Cakeopera</span>
+    </a>
+    <nav>
+      <a href="index.html#menu">Menu</a>
+      <a href="courier.html">Courier</a>
+      <a href="cart.html">Cart</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="cart-page">
+    <h1>Your Cart</h1>
+    <div id="cart-container">
+      <!-- Cart rendering happens from cart-handler.js -->
+    </div>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Cakeopera</p>
+  </footer>
+
+  <!-- Razorpay Payment SDK -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <script src="script.js"></script>
+  <script src="cart-handler.js"></script>
+</body>
+</html>
