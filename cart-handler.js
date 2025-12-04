@@ -115,14 +115,12 @@
 
             <h4>Select Payment</h4>
             <div class="pay-method">
-              <label><input type="radio" name="paymethod" value="cod" checked> Cash on Delivery</label>
-              <label><input type="radio" name="paymethod" value="paypal"> PayPal</label>
-              <label><input type="radio" name="paymethod" value="razorpay"> Razorpay</label>
+            <label><input type="radio" name="paymethod" value="razorpay"> Razorpay</label>
             </div>
 
             <button id="checkout-pay" class="btn-pay">Pay / Place Order</button>
             <div class="note">
-              After payment, you will see an order confirmation. For PayPal & Razorpay, you will be redirected to the payment provider.
+              After payment, you will see an order confirmation. For Razorpay, you will be redirected to the payment provider.
             </div>
             <div id="checkout-msg" style="margin-top:10px;"></div>
           </div>
@@ -181,7 +179,7 @@
     renderCartCount();
   }
 
-  // ===== Checkout Handler (COD / PayPal (demo) / Razorpay) =====
+  // ===== Checkout Handler (Razorpay) =====
   function handleCheckout(totalAmount){
     const method = document.querySelector('input[name="paymethod"]:checked').value;
     const name = document.getElementById('ship-name').value.trim();
@@ -216,14 +214,7 @@
       return;
     }
 
-    if(method === 'paypal'){
-      // Demo: open paypal home (replace with real integration later)
-      msgEl.innerHTML = 'Redirecting to PayPal (demo)...';
-      window.open('https://www.paypal.com/checkoutnow?token=demo', '_blank');
-      return;
-    }
-
-    if(method === 'razorpay'){
+      if(method === 'razorpay'){
       msgEl.innerHTML = 'Preparing Razorpay checkout...';
       const amountPaise = Math.round(totalAmount * 100);
 
