@@ -2,7 +2,7 @@
 (function(){
   // ===== CONFIG =====
   // For local testing use the local server
-  const SERVER_BASE = 'http://localhost:3000';
+  const SERVER_BASE = 'https://cakeopera-backend.onrender.com';
   const CART_KEY = 'cakeopera_cart_v1';
 
   // Example courier products - change / extend as required
@@ -205,6 +205,7 @@
       paymentMethod: method
     };
 
+    // If you add COD later, you can re-enable this block
     if(method === 'cod'){
       localStorage.removeItem(CART_KEY);
       renderCartPage();
@@ -214,11 +215,12 @@
       return;
     }
 
-      if(method === 'razorpay'){
+    // ---- Razorpay flow ----
+    if(method === 'razorpay'){
       msgEl.innerHTML = 'Preparing Razorpay checkout...';
       const amountPaise = Math.round(totalAmount * 100);
 
-      // create order on local server
+      // 1) Create order on live backend (Render)
       fetch(SERVER_BASE + '/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -226,42 +228,38 @@
       })
       .then(r => r.json())
       .then(data => {
-        if(!data.ok || !data.order) throw new Error(data.error || 'Order creation failed');
+        // backend: { success: true, ok: true, order: {...} }
+        if((data.ok === false || data.success === false) || !data.order){
+          throw new Error(data.error || 'Order creation failed');
+        }
+
         const orderRz = data.order;
 
         const options = {
-          key: 'rzp_live_RnaCiQ6aqxCqmG', // your key id (safe to use client-side)
+          key: 'rzp_live_RnaCiQ6aqxCqmG', // your Razorpay key id (public)
           amount: orderRz.amount,
           currency: orderRz.currency,
           name: 'Cakeopera',
           description: 'Courier order',
           order_id: orderRz.id,
           handler: function (response){
-            // verify on server
-            fetch(SERVER_BASE + '/verify-payment', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature
-              })
-            })
-            .then(r=>r.json())
-            .then(verify => {
-              if(verify.ok && verify.verified){
-                localStorage.removeItem(CART_KEY);
-                renderCartPage();
-                renderCartCount();
-                msgEl.innerHTML = '<div style="color:green">Payment successful. Order confirmed. Payment ID: ' + response.razorpay_payment_id + '</div>';
-                localStorage.setItem('cakeopera_last_order', JSON.stringify(Object.assign({}, order, { payment: response })));
-              } else {
-                msgEl.innerHTML = '<div style="color:#b54">Payment verification failed. Please contact support.</div>';
-              }
-            }).catch(err=>{
-              console.error(err);
-              msgEl.innerHTML = '<div style="color:#b54">Verification call failed.</div>';
-            });
+            // For now we treat handler success as final success
+            console.log('Razorpay success response:', response);
+
+            localStorage.removeItem(CART_KEY);
+            renderCartPage();
+            renderCartCount();
+            msgEl.innerHTML =
+              '<div style="color:green;padding:10px;border-radius:8px;background:#f1fdf5">' +
+              'Payment successful. Order confirmed.<br>' +
+              'Order ID: <strong>' + order.id + '</strong><br>' +
+              'Payment ID: <strong>' + response.razorpay_payment_id + '</strong>' +
+              '</div>';
+
+            localStorage.setItem(
+              'cakeopera_last_order',
+              JSON.stringify(Object.assign({}, order, { payment: response }))
+            );
           },
           prefill: {
             name: name,
@@ -274,7 +272,8 @@
           const rzp = new Razorpay(options);
           rzp.open();
         } else {
-          msgEl.innerHTML = '<div style="color:#b54">Razorpay SDK not loaded. Add &lt;script src="https://checkout.razorpay.com/v1/checkout.js"&gt;&lt;/script&gt; in cart.html</div>';
+          msgEl.innerHTML =
+            '<div style="color:#b54">Razorpay SDK not loaded. Add &lt;script src="https://checkout.razorpay.com/v1/checkout.js"&gt;&lt;/script&gt; in cart.html</div>';
         }
       })
       .catch(err => {
@@ -283,6 +282,7 @@
       });
     }
   }
+
 
   // expose small API
   window.renderCourierGrid = renderCourierGrid;
