@@ -2,8 +2,8 @@
 (function(){
   // ===== CONFIG =====
   // For local testing use the local server
-  const SERVER_BASE = 'https://cakeopera-backend.onrender.com';
-  const CART_KEY = 'cakeopera_cart_v1';
+const SERVER_BASE = 'https://cakeopera-backend.onrender.com';
+const CART_KEY = 'cakeopera_cart_v1';
 
   // Example courier products - change / extend as required
   const COURIER_PRODUCTS = [
