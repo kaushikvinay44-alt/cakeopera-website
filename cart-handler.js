@@ -7,9 +7,9 @@
 
   // Example courier products - change / extend as required
   const COURIER_PRODUCTS = [
-    { id: 'jar-biscoff-200', name: 'Biscoff Cheese Jar (200 Ml)', price: 319, img: 'https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/HEbKmUaDlzpNWh8rKgeivyxqpEK62rblDdqwUdFN.jpg', weight: '200 Ml' },
-    { id: 'jar-blueberry-200', name: 'Blueberry Cheesecake Jar (200 Ml)', price: 319, img: 'https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/REWNatGZVn3t4PmxjQSSUWdarNHtYxBerfFj6pA2.jpg', weight: '200 Ml' },
-    { id: 'jar-chocomud-200', name: 'Choco Mud Jar Cake (200 Ml)', price: 319, img: 'https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/EGuf1sEe4HWpAtG9nfytzU865oZBHbkFTv26Mk36.jpg', weight: '200 Ml' }
+    { id: 'Rich Plum cake (Round)', name: 'Rich Plum cake (Round)', price: 350, img: 'https://prime-c0.static.urbanpiper.com/cakeopera/2025-11/fSsw3uvFCa1Ua8JzZwoEfABK0TeawHAZhelQzcor.jpg', weight: '350 Gm' },
+    { id: 'Rich Plum cake Mini', name: 'Rich Plum cake Mini', price: 75, img: 'https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/VYhm0bskSrR9ouLBeJAUlSgowYza6OOjb1PVKUUo.jpg', weight: '150 Gm' },
+    { id: 'Banana Walnut Cake ', name: 'Banana Walnut Cake (400 Gm)', price: 300, img: 'https://prime-c0.static.urbanpiper.com/cakeopera/2025-11/EzQoBuScQhUGBKdxLMcmAfo0Eoil4YHRvf23KZYN.jpg', weight: '400 Gm' }
   ];
 
   // ===== Helpers =====
