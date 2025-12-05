@@ -37,138 +37,17 @@
   <main class="cart-page">
     <h1>Your Cart</h1>
 
-    <!-- Cart items are rendered by cart-handler.js -->
+    <!-- EVERYTHING (table + Order Summary + Shipping) 
+         IS RENDERED BY cart-handler.js INTO THIS DIV -->
     <div id="cart-container"></div>
-
-    <!-- Order summary + payment -->
-    <section class="checkout-panel">
-      <h2>Order Summary</h2>
-
-      <p>Subtotal:
-        <strong>₹<span id="cart-subtotal-amount">0</span></strong>
-      </p>
-      <p>Courier shipping:
-        <strong>₹<span id="cart-shipping-amount">0</span></strong>
-      </p>
-      <p>Total:
-        <strong>₹<span id="cart-total-amount" data-amount="0">0</span></strong>
-      </p>
-
-      <h3 style="margin-top:16px;">Select Payment</h3>
-      <div class="pay-method">
-        <label>
-          <input type="radio" name="pay-method" checked>
-          Razorpay
-        </label>
-      </div>
-
-      <button id="payPlaceOrder" class="btn-pay">Pay / Place Order</button>
-      <p id="paymentError" class="error-text"></p>
-    </section>
   </main>
 
   <footer>
     <p>© <span id="year"></span> Cakeopera</p>
   </footer>
 
-  <!-- Your main scripts -->
+  <!-- Scripts -->
   <script src="script.js"></script>
   <script src="cart-handler.js"></script>
-
-  <!-- Razorpay + backend integration -->
-  <script>
-    const BACKEND_BASE_URL = "https://cakeopera-backend.onrender.com";
-    const RAZORPAY_KEY_ID = "rzp_live_RnaCiQ6aqxCqmG"; // use test key if needed
-
-    async function createCakeoperaOrder(totalAmountInRupees) {
-      const amountInPaise = Math.round(totalAmountInRupees * 100);
-
-      const response = await fetch(BACKEND_BASE_URL + "/create-order", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ amount: amountInPaise })
-      });
-
-      const data = await response.json();
-
-      if (!data || (!data.ok && !data.success)) {
-        throw new Error(data && data.error ? data.error : "Order creation failed");
-      }
-
-      return data.order;
-    }
-
-    function getCartTotalFromPage() {
-      const totalSpan = document.getElementById("cart-total-amount");
-      if (!totalSpan) return 0;
-
-      const raw = totalSpan.dataset.amount || totalSpan.textContent;
-      const numeric = parseFloat(String(raw).replace(/[^\d.]/g, "")) || 0;
-      return numeric;
-    }
-
-    async function openRazorpayCheckout(totalAmountInRupees) {
-      const errorEl = document.getElementById("paymentError");
-      if (errorEl) errorEl.textContent = "";
-
-      try {
-        const order = await createCakeoperaOrder(totalAmountInRupees);
-
-        const options = {
-          key: RAZORPAY_KEY_ID,
-          amount: order.amount,
-          currency: order.currency || "INR",
-          name: "Cakeopera",
-          description: "Courier Order Payment",
-          order_id: order.id,
-          handler: function (response) {
-            alert("Payment Successful! 🎉");
-            console.log("Razorpay response:", response);
-
-            // Example: clear cart + redirect
-            // localStorage.removeItem("cakeoperaCart");
-            // window.location.href = "thankyou.html";
-          },
-          prefill: {
-            name: "Customer",
-            email: "customer@example.com",
-            contact: "9876543210"
-          },
-          theme: {
-            color: "#E91E63"
-          }
-        };
-
-        const rzp = new Razorpay(options);
-        rzp.open();
-      } catch (err) {
-        console.error("Payment error:", err);
-        if (errorEl) {
-          errorEl.textContent = "Order creation failed: " + err.message;
-        } else {
-          alert("Order creation failed: " + err.message);
-        }
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      const payBtn = document.getElementById("payPlaceOrder");
-      if (!payBtn) return;
-
-      payBtn.addEventListener("click", function (e) {
-        e.preventDefault();
-
-        const totalAmountInRupees = getCartTotalFromPage();
-        if (totalAmountInRupees <= 0) {
-          alert("Cart total must be greater than 0.");
-          return;
-        }
-
-        openRazorpayCheckout(totalAmountInRupees);
-      });
-    });
-  </script>
 </body>
 </html>
