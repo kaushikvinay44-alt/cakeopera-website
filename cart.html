@@ -16,6 +16,7 @@
     .btn-pay{ background:#e05572; color:#fff; border:none; padding:12px 18px; border-radius:10px; cursor:pointer; font-weight:700;}
   </style>
 </head>
+  <button id="payBtn" class="btn btn-primary">Pay Securely</button>
 <body>
   <header>
     <a class="brand" href="index.html">
@@ -46,5 +47,58 @@
 
   <script src="script.js"></script>
   <script src="cart-handler.js"></script>
+  <script>
+document.getElementById("payBtn").addEventListener("click", async function () {
+
+    // Example amount → replace with dynamic cart total later
+    const amount = 1000 * 100; // 1000 INR = 100000 paise
+
+    // 1️⃣ Create order on your backend
+    const response = await fetch("http://localhost:3000/create-order", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ amount })
+    });
+
+    const data = await response.json();
+
+    if (!data.success) {
+        alert("Order creation failed!");
+        return;
+    }
+
+    const order = data.order;
+
+    // 2️⃣ Razorpay Checkout options
+    const options = {
+        key: "rzp_live_RnaCiQ6aqxCqmG", 
+        amount: order.amount,
+        currency: "INR",
+        name: "Cakeopera",
+        description: "Courier Order Payment",
+        order_id: order.id,
+        handler: function (response) {
+            alert("Payment Successful!");
+            console.log(response);
+        },
+        prefill: {
+            name: "Customer",
+            email: "test@example.com",
+            contact: "9999999999"
+        },
+        theme: {
+            color: "#E91E63"
+        }
+    };
+
+    // 3️⃣ Open Razorpay popup
+    const rzp = new Razorpay(options);
+    rzp.open();
+
+});
+</script>
+
 </body>
 </html>
