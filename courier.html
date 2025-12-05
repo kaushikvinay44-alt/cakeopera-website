@@ -17,28 +17,7 @@
 </head>
 <body>
   <header>
-    /* Courier banner carousel */
-.courier-banner { position: relative; overflow: hidden; max-height:420px; background:#fff; }
-.cb-slider { display:flex; transition: transform 0.6s ease; width:300%; } /* wide container for slides */
-.cb-slide { min-width:100%; position:relative; display:flex; align-items:center; justify-content:flex-start; gap:24px; padding:28px; box-sizing:border-box; }
-.cb-slide img { width:48%; max-height:360px; object-fit:cover; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.08); }
-.cb-caption { width:46%; padding:18px; }
-.cb-caption h2{ font-size:30px; margin:0 0 8px; color:#222; }
-.cb-caption p{ color:#666; margin-bottom:14px; }
-.cb-prev, .cb-next { position:absolute; top:50%; transform:translateY(-50%); border:none; background:rgba(255,255,255,0.85); height:44px; width:44px; border-radius:50%; box-shadow:0 6px 18px rgba(0,0,0,0.08); cursor:pointer; font-size:22px; }
-.cb-prev { left:14px; } .cb-next { right:14px; }
-.cb-dots { position:absolute; bottom:12px; left:50%; transform:translateX(-50%); display:flex; gap:8px; }
-.cb-dots button{ width:10px; height:10px; border-radius:50%; border:none; background:rgba(0,0,0,0.12); cursor:pointer; }
-.cb-dots button.active{ background:#e05572; box-shadow:0 6px 14px rgba(224,85,114,0.18); }
-
-/* Responsive tweaks */
-@media (max-width:900px){
-  .cb-slide { flex-direction:column; padding:18px; }
-  .cb-slide img, .cb-caption { width:100%; }
-  .cb-caption { padding:8px 0; }
-  .courier-banner { max-height:700px; }
-}
-
+  
     <!-- Courier top banner carousel -->
 <section class="courier-banner">
   <div class="cb-slider" id="cb-slider">
