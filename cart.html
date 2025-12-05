@@ -1,22 +1,25 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Razorpay Checkout SDK -->
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Your Cart — Cakeopera Checkout</title>
   <link rel="stylesheet" href="styles.css">
+
   <style>
     .cart-page{ max-width:1000px; margin:28px auto; padding:0 20px;}
     .cart-table{ width:100%; border-collapse:collapse; margin-bottom:18px;}
     .cart-table th, .cart-table td{ padding:12px; text-align:left; border-bottom:1px solid #eee;}
     .cart-thumb{ width:72px; height:72px; object-fit:cover; border-radius:8px; }
-    .checkout-panel{ background:#fff; padding:14px; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,0.06);}
+    .checkout-panel{ background:#fff; padding:16px 18px; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,0.06); margin-top:18px;}
     .pay-method label{ margin-right:18px; }
     .btn-pay{ background:#e05572; color:#fff; border:none; padding:12px 18px; border-radius:10px; cursor:pointer; font-weight:700;}
+    .error-text{ color:#d9534f; margin-top:8px; font-size:0.9rem; }
   </style>
 </head>
-  <button id="payBtn" class="btn btn-primary">Pay Securely</button>
 <body>
   <header>
     <a class="brand" href="index.html">
@@ -33,72 +36,139 @@
 
   <main class="cart-page">
     <h1>Your Cart</h1>
-    <div id="cart-container">
-      <!-- Cart rendering happens from cart-handler.js -->
-    </div>
+
+    <!-- Cart items are rendered by cart-handler.js -->
+    <div id="cart-container"></div>
+
+    <!-- Order summary + payment -->
+    <section class="checkout-panel">
+      <h2>Order Summary</h2>
+
+      <p>Subtotal:
+        <strong>₹<span id="cart-subtotal-amount">0</span></strong>
+      </p>
+      <p>Courier shipping:
+        <strong>₹<span id="cart-shipping-amount">0</span></strong>
+      </p>
+      <p>Total:
+        <strong>₹<span id="cart-total-amount" data-amount="0">0</span></strong>
+      </p>
+
+      <h3 style="margin-top:16px;">Select Payment</h3>
+      <div class="pay-method">
+        <label>
+          <input type="radio" name="pay-method" checked>
+          Razorpay
+        </label>
+      </div>
+
+      <button id="payPlaceOrder" class="btn-pay">Pay / Place Order</button>
+      <p id="paymentError" class="error-text"></p>
+    </section>
   </main>
 
   <footer>
     <p>© <span id="year"></span> Cakeopera</p>
   </footer>
 
-  <!-- Razorpay Payment SDK -->
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
+  <!-- Your main scripts -->
   <script src="script.js"></script>
   <script src="cart-handler.js"></script>
+
+  <!-- Razorpay + backend integration -->
   <script>
-document.getElementById("payBtn").addEventListener("click", async function () {
+    const BACKEND_BASE_URL = "https://cakeopera-backend.onrender.com";
+    const RAZORPAY_KEY_ID = "rzp_live_RnaCiQ6aqxCqmG"; // use test key if needed
 
-    // Example amount → replace with dynamic cart total later
-    const amount = 1000 * 100; // 1000 INR = 100000 paise
+    async function createCakeoperaOrder(totalAmountInRupees) {
+      const amountInPaise = Math.round(totalAmountInRupees * 100);
 
-    // 1️⃣ Create order on your backend
-    const response = await fetch("http://localhost:3000/create-order", {
+      const response = await fetch(BACKEND_BASE_URL + "/create-order", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify({ amount })
-    });
+        body: JSON.stringify({ amount: amountInPaise })
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (!data.success) {
-        alert("Order creation failed!");
-        return;
+      if (!data || (!data.ok && !data.success)) {
+        throw new Error(data && data.error ? data.error : "Order creation failed");
+      }
+
+      return data.order;
     }
 
-    const order = data.order;
+    function getCartTotalFromPage() {
+      const totalSpan = document.getElementById("cart-total-amount");
+      if (!totalSpan) return 0;
 
-    // 2️⃣ Razorpay Checkout options
-    const options = {
-        key: "rzp_live_RnaCiQ6aqxCqmG", 
-        amount: order.amount,
-        currency: "INR",
-        name: "Cakeopera",
-        description: "Courier Order Payment",
-        order_id: order.id,
-        handler: function (response) {
-            alert("Payment Successful!");
-            console.log(response);
-        },
-        prefill: {
+      const raw = totalSpan.dataset.amount || totalSpan.textContent;
+      const numeric = parseFloat(String(raw).replace(/[^\d.]/g, "")) || 0;
+      return numeric;
+    }
+
+    async function openRazorpayCheckout(totalAmountInRupees) {
+      const errorEl = document.getElementById("paymentError");
+      if (errorEl) errorEl.textContent = "";
+
+      try {
+        const order = await createCakeoperaOrder(totalAmountInRupees);
+
+        const options = {
+          key: RAZORPAY_KEY_ID,
+          amount: order.amount,
+          currency: order.currency || "INR",
+          name: "Cakeopera",
+          description: "Courier Order Payment",
+          order_id: order.id,
+          handler: function (response) {
+            alert("Payment Successful! 🎉");
+            console.log("Razorpay response:", response);
+
+            // Example: clear cart + redirect
+            // localStorage.removeItem("cakeoperaCart");
+            // window.location.href = "thankyou.html";
+          },
+          prefill: {
             name: "Customer",
-            email: "test@example.com",
-            contact: "9999999999"
-        },
-        theme: {
+            email: "customer@example.com",
+            contact: "9876543210"
+          },
+          theme: {
             color: "#E91E63"
+          }
+        };
+
+        const rzp = new Razorpay(options);
+        rzp.open();
+      } catch (err) {
+        console.error("Payment error:", err);
+        if (errorEl) {
+          errorEl.textContent = "Order creation failed: " + err.message;
+        } else {
+          alert("Order creation failed: " + err.message);
         }
-    };
+      }
+    }
 
-    // 3️⃣ Open Razorpay popup
-    const rzp = new Razorpay(options);
-    rzp.open();
+    document.addEventListener("DOMContentLoaded", function () {
+      const payBtn = document.getElementById("payPlaceOrder");
+      if (!payBtn) return;
 
-});
-</script>
+      payBtn.addEventListener("click", function (e) {
+        e.preventDefault();
 
+        const totalAmountInRupees = getCartTotalFromPage();
+        if (totalAmountInRupees <= 0) {
+          alert("Cart total must be greater than 0.");
+          return;
+        }
+
+        openRazorpayCheckout(totalAmountInRupees);
+      });
+    });
+  </script>
 </body>
 </html>
