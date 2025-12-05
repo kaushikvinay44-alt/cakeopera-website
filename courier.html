@@ -29,4 +29,165 @@
       position:absolute; top:50%; transform:translateY(-50%);
       border:none; background:rgba(255,255,255,0.85);
       height:44px; width:44px; border-radius:50%;
-      box-shadow:0 6px 18px rgba(0,0,
+      box-shadow:0 6px 18px rgba(0,0,0,0.08);
+      cursor:pointer; font-size:22px;
+    }
+    .cb-prev { left:14px; }
+    .cb-next { right:14px; }
+
+    .cb-dots { position:absolute; bottom:12px; left:50%; transform:translateX(-50%); display:flex; gap:8px; }
+    .cb-dots button{
+      width:10px; height:10px; border-radius:50%;
+      border:none; background:rgba(0,0,0,0.12); cursor:pointer;
+    }
+    .cb-dots button.active{
+      background:#e05572; box-shadow:0 6px 14px rgba(224,85,114,0.18);
+    }
+
+    @media (max-width:900px){
+      .cb-slide { flex-direction:column; padding:18px; text-align:center; }
+      .cb-slide img, .cb-caption { width:100%; }
+      .cb-caption { padding:8px 0; }
+      .courier-banner { max-height:700px; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header>
+    <a class="brand" href="index.html">
+      <img src="images/logo.png" alt="Cakeopera logo">
+      <span>Cakeopera</span>
+    </a>
+    <nav>
+      <a href="index.html#menu">Menu</a>
+      <a href="courier.html">Courier</a>
+      <a href="cart.html">Cart</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- COURIER CAROUSEL -->
+  <section class="courier-banner">
+    <div class="cb-slider" id="cb-slider">
+
+      <div class="cb-slide">
+        <img src="images/banner-courier-1.jpg" alt="Safe Courier Packaging">
+        <div class="cb-caption">
+          <h2>Ship Cheesecakes Safely — Pan India</h2>
+          <p>Cakes & jars in shock-proof packaging. Perfect for gifting and travel.</p>
+          <a href="#courier-grid" class="btn btn-outline">Explore Items</a>
+        </div>
+      </div>
+
+      <div class="cb-slide">
+        <img src="images/banner-courier-2.jpg" alt="Discount Offer">
+        <div class="cb-caption">
+          <h2>Flat ₹50 Off Courier Jars</h2>
+          <p>Apply code <strong>SHIP50</strong> on checkout. Limited-time offer.</p>
+          <a href="#courier-grid" class="btn btn-outline">Order Now</a>
+        </div>
+      </div>
+
+      <div class="cb-slide">
+        <img src="images/banner-courier-3.jpg" alt="Premium Jar Cakes">
+        <div class="cb-caption">
+          <h2>Premium Jars — Perfect Gifts</h2>
+          <p>Blueberry, Biscoff, Nutella & more. Shipped in temperature-resistant boxes.</p>
+          <a href="#courier-grid" class="btn btn-outline">Shop Jars</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Controls -->
+    <button class="cb-prev" id="cb-prev">&lsaquo;</button>
+    <button class="cb-next" id="cb-next">&rsaquo;</button>
+    <div class="cb-dots" id="cb-dots"></div>
+  </section>
+
+  <!-- MAIN COURIER PRODUCT GRID -->
+  <main class="courier-page">
+    <h1>Courier Products</h1>
+    <p class="small-muted">
+      These items are packed for safe courier delivery. Add to cart and checkout easily.
+    </p>
+
+    <div id="courier-grid" class="courier-grid">
+      <!-- Cards auto-inserted by cart-handler.js -->
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© <span id="year"></span> Cakeopera</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="cart-handler.js"></script>
+
+  <!-- CAROUSEL JS -->
+  <script>
+    (function(){
+      const slider = document.getElementById('cb-slider');
+      const slides = slider.querySelectorAll('.cb-slide');
+      const prev = document.getElementById('cb-prev');
+      const next = document.getElementById('cb-next');
+      const dotsWrap = document.getElementById('cb-dots');
+
+      let current = 0;
+      const total = slides.length;
+      let autoTimer = null;
+      const AUTOPLAY_MS = 4500;
+
+      // Create dots
+      for(let i=0; i<total; i++){
+        const btn = document.createElement('button');
+        btn.dataset.index = i;
+        if(i === 0) btn.classList.add('active');
+        btn.addEventListener('click', ()=>{
+          goTo(i); resetAuto();
+        });
+        dotsWrap.appendChild(btn);
+      }
+
+      function update(){
+        slider.style.transform = `translateX(-${current * 100}%)`;
+        const dots = dotsWrap.querySelectorAll('button');
+        dots.forEach((d, idx)=> d.classList.toggle('active', idx===current));
+      }
+
+      function goTo(i){
+        current = (i + total) % total;
+        update();
+      }
+
+      function nextSlide(){ goTo(current + 1); }
+      function prevSlide(){ goTo(current - 1); }
+
+      if(next) next.addEventListener('click', ()=>{ nextSlide(); resetAuto(); });
+      if(prev) prev.addEventListener('click', ()=>{ prevSlide(); resetAuto(); });
+
+      function startAuto(){
+        autoTimer = setInterval(nextSlide, AUTOPLAY_MS);
+      }
+      function stopAuto(){
+        clearInterval(autoTimer);
+        autoTimer = null;
+      }
+      function resetAuto(){
+        stopAuto(); startAuto();
+      }
+
+      slider.addEventListener('mouseenter', stopAuto);
+      slider.addEventListener('mouseleave', startAuto);
+
+      // Initialize
+      update();
+      startAuto();
+    })();
+  </script>
+
+</body>
+</html>
