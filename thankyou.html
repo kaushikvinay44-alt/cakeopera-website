@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Thank You – Cakeopera</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .thankyou-page {
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 24px;
+      background:#fff;
+      border-radius:18px;
+      box-shadow:0 18px 40px rgba(0,0,0,0.08);
+      text-align:center;
+    }
+    .thankyou-page h1{
+      font-size:2rem;
+      margin-bottom:10px;
+    }
+    .thankyou-page .order-id{
+      font-family:monospace;
+      font-weight:700;
+      padding:6px 10px;
+      border-radius:8px;
+      background:#f9edf1;
+      display:inline-block;
+      margin:8px 0 16px;
+    }
+    .thank-actions{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="brand" href="index.html">
+      <img src="images/logo.png" alt="Cakeopera logo">
+      <span>Cakeopera</span>
+    </a>
+    <nav>
+      <a href="index.html#menu">Menu</a>
+      <a href="courier.html">Courier</a>
+      <a href="cart.html">Cart</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="thankyou-page">
+    <h1>Thank you for your order! 🎂</h1>
+    <p>Your order has been received. We’re baking it fresh for you.</p>
+    <p id="orderIdRow" style="display:none;">
+      Your Order ID:<br>
+      <span class="order-id" id="orderId"></span>
+    </p>
+    <p id="payInfo"></p>
+
+    <div class="thank-actions">
+      <a class="btn btn-primary" href="courier.html">Order More</a>
+      <a class="btn btn-outline" href="index.html#contact">Need Help?</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Cakeopera – Freshly Crafted With Love</p>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const params = new URLSearchParams(window.location.search);
+    const orderId = params.get("orderId");
+    const paid = params.get("paid"); // 'true' or 'false' for COD
+
+    if(orderId){
+      document.getElementById("orderIdRow").style.display = "block";
+      document.getElementById("orderId").textContent = orderId;
+    }
+
+    const payInfo = document.getElementById("payInfo");
+    if(paid === "false"){
+      payInfo.textContent = "You selected Cash on Delivery. Please keep the amount ready at the time of delivery.";
+    } else {
+      payInfo.textContent = "Your payment was received successfully.";
+    }
+  </script>
+</body>
+</html>
