@@ -179,109 +179,111 @@ const CART_KEY = 'cakeopera_cart_v1';
     renderCartCount();
   }
 
-  // ===== Checkout Handler (Razorpay) =====
-  function handleCheckout(totalAmount){
-    const method = document.querySelector('input[name="paymethod"]:checked').value;
-    const name = document.getElementById('ship-name').value.trim();
-    const phone = document.getElementById('ship-phone').value.trim();
-    const address = document.getElementById('ship-address').value.trim();
-    const msgEl = document.getElementById('checkout-msg');
+// ===== Checkout Handler (Razorpay only) =====
+async function handleCheckout(totalAmount, discount, couponCode){
+  const name = document.getElementById('ship-name').value.trim();
+  const phone = document.getElementById('ship-phone').value.trim();
+  const address = document.getElementById('ship-address').value.trim();
+  const deliveryDate = document.getElementById('delivery-date')?.value || "";
+  const deliverySlot = document.getElementById('delivery-slot')?.value || "";
+  const msgEl = document.getElementById('checkout-msg');
 
-    if(!name || !phone || !address){
-      msgEl.innerHTML = '<span style="color:#c62828">Please enter your shipping name, phone & address.</span>';
-      return;
-    }
+  if(!name || !phone || !address){
+    msgEl.innerHTML = '<span style="color:#c62828">Please enter your shipping name, phone & address.</span>';
+    return;
+  }
 
-    const cart = getCart();
-    if(!cart.length){
-      msgEl.innerHTML = '<span style="color:#c62828">Cart is empty.</span>';
-      return;
-    }
+  const cart = getCart();
+  if(!cart.length){
+    msgEl.innerHTML = '<span style="color:#c62828">Cart is empty.</span>';
+    return;
+  }
 
-    const order = {
-      id: 'ORD' + Date.now(),
-      cart, total: totalAmount, shipping: 99,
-      customer: { name, phone, address },
-      paymentMethod: method
-    };
+  // build the order object we want to log into Google Sheets
+  const order = {
+    id: 'ORD' + Date.now(),
+    cart,
+    totals: {
+      total: totalAmount,
+      discount: discount || 0,
+      shipping: 99
+    },
+    couponCode: couponCode || null,
+    customer: { name, phone, address },
+    delivery: { date: deliveryDate, slot: deliverySlot },
+    paymentMethod: 'razorpay'
+  };
 
-    // If you add COD later, you can re-enable this block
-    if(method === 'cod'){
-      localStorage.removeItem(CART_KEY);
-      renderCartPage();
-      renderCartCount();
-      msgEl.innerHTML = '<div style="color:green;padding:10px;border-radius:8px;background:#f1fdf5">Order placed successfully as Cash on Delivery. Order ID: <strong>' + order.id + '</strong></div>';
-      localStorage.setItem('cakeopera_last_order', JSON.stringify(order));
-      return;
-    }
+  msgEl.innerHTML = 'Preparing Razorpay checkout...';
+  const amountPaise = Math.round(totalAmount * 100);
 
-    // ---- Razorpay flow ----
-    if(method === 'razorpay'){
-      msgEl.innerHTML = 'Preparing Razorpay checkout...';
-      const amountPaise = Math.round(totalAmount * 100);
+  try{
+    // 1) create Razorpay order on backend
+    const r = await fetch(SERVER_BASE + '/create-order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount: amountPaise, currency: 'INR' })
+    });
+    const data = await r.json();
+    if(!data.ok || !data.order) throw new Error(data.error || 'Order creation failed');
+    const orderRz = data.order;
 
-      // 1) Create order on live backend (Render)
-      fetch(SERVER_BASE + '/create-order', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: amountPaise, currency: 'INR' })
-      })
-      .then(r => r.json())
-      .then(data => {
-        // backend: { success: true, ok: true, order: {...} }
-        if((data.ok === false || data.success === false) || !data.order){
-          throw new Error(data.error || 'Order creation failed');
-        }
-
-        const orderRz = data.order;
-
-        const options = {
-          key: "rzp_live_RoMbSPvVvV91G4", // your Razorpay key id (public)
-          amount: orderRz.amount,
-          currency: orderRz.currency,
-          name: 'Cakeopera',
-          description: 'Courier order',
-          order_id: orderRz.id,
-          handler: function (response){
-            // For now we treat handler success as final success
-            console.log('Razorpay success response:', response);
-
+    // 2) open Razorpay popup
+    const options = {
+      key: 'rzp_live_RoMbSPvVvV91G4', // your live key ID
+      amount: orderRz.amount,
+      currency: orderRz.currency,
+      name: 'Cakeopera',
+      description: 'Courier order',
+      order_id: orderRz.id,
+      handler: function (response){
+        // 3) verify on backend & send order to Google Sheets
+        fetch(SERVER_BASE + '/verify-payment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+            order              // <-- send full order details
+          })
+        })
+        .then(res=>res.json())
+        .then(verify => {
+          if(verify.ok && verify.verified){
+            // clear cart + redirect to thank you page
             localStorage.removeItem(CART_KEY);
+            localStorage.removeItem('cakeopera_coupon_code');
             renderCartPage();
             renderCartCount();
-            msgEl.innerHTML =
-              '<div style="color:green;padding:10px;border-radius:8px;background:#f1fdf5">' +
-              'Payment successful. Order confirmed.<br>' +
-              'Order ID: <strong>' + order.id + '</strong><br>' +
-              'Payment ID: <strong>' + response.razorpay_payment_id + '</strong>' +
-              '</div>';
+            window.location.href = `thankyou.html?orderId=${encodeURIComponent(order.id)}&paid=true`;
+          } else {
+            msgEl.innerHTML = '<div style="color:#b54">Payment verification failed. Please contact support.</div>';
+          }
+        }).catch(err=>{
+          console.error(err);
+          msgEl.innerHTML = '<div style="color:#b54">Verification call failed.</div>';
+        });
+      },
+      prefill: {
+        name: name,
+        contact: phone
+      },
+      theme: { color: '#e05572' }
+    };
 
-            localStorage.setItem(
-              'cakeopera_last_order',
-              JSON.stringify(Object.assign({}, order, { payment: response }))
-            );
-          },
-          prefill: {
-            name: name,
-            contact: phone
-          },
-          theme: { color: '#e05572' }
-        };
-
-        if(typeof Razorpay !== 'undefined'){
-          const rzp = new Razorpay(options);
-          rzp.open();
-        } else {
-          msgEl.innerHTML =
-            '<div style="color:#b54">Razorpay SDK not loaded. Add &lt;script src="https://checkout.razorpay.com/v1/checkout.js"&gt;&lt;/script&gt; in cart.html</div>';
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        msgEl.innerHTML = '<div style="color:#b54">Order creation failed: ' + err.message + '</div>';
-      });
+    if(typeof Razorpay !== 'undefined'){
+      const rzp = new Razorpay(options);
+      rzp.open();
+    } else {
+      msgEl.innerHTML = '<div style="color:#b54">Razorpay SDK not loaded.</div>';
     }
+  }catch(err){
+    console.error(err);
+    msgEl.innerHTML = '<div style="color:#b54">Order creation failed: ' + err.message + '</div>';
   }
+}
+
 
 
   // expose small API
