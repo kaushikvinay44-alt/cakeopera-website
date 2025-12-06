@@ -236,7 +236,7 @@ const CART_KEY = 'cakeopera_cart_v1';
         const orderRz = data.order;
 
         const options = {
-          key: "rzp_live_RnaCiQ6aqxCqmG", // your Razorpay key id (public)
+          key: "rzp_live_RoMbSPvVvV91G4", // your Razorpay key id (public)
           amount: orderRz.amount,
           currency: orderRz.currency,
           name: 'Cakeopera',
