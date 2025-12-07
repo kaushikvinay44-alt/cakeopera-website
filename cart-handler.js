@@ -10,7 +10,11 @@ const CART_KEY = 'cakeopera_cart_v1';
     { id: 'Rich Plum cake (Round)', name: 'Rich Plum cake (Round)', price: 350, img: 'https://prime-c0.static.urbanpiper.com/cakeopera/2025-11/fSsw3uvFCa1Ua8JzZwoEfABK0TeawHAZhelQzcor.jpg', weight: '350 Gm' },
     { id: 'Rich Plum cake Mini', name: 'Rich Plum cake Mini', price: 75, img: 'https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/VYhm0bskSrR9ouLBeJAUlSgowYza6OOjb1PVKUUo.jpg', weight: '150 Gm' },
     { id: 'Banana Walnut Cake ', name: 'Banana Walnut Cake (400 Gm)', price: 300, img: 'https://prime-c0.static.urbanpiper.com/cakeopera/2025-11/EzQoBuScQhUGBKdxLMcmAfo0Eoil4YHRvf23KZYN.jpg', weight: '400 Gm' }
-  ];
+    { id: 'Banana Walnut Mini Dry Cake', name: 'Banana Walnut Mini Dry Cake', price: 320, img: 'https://prime-c0.static.urbanpiper.com/cakeopera/2025-11/EzQoBuScQhUGBKdxLMcmAfo0Eoil4YHRvf23KZYN.jpg', weight: '150 Gm' },
+    { id: 'Assorted Brownies', name: 'Assorted Brownies', price: 400, img: 'https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/c9l1AhM8uUj3T9eveFl73hDot0HrOaNU7e1NUP3H.jpg', weight: 'Pack Of 4' },
+    { id: 'Assorted Mini Dry Cake Hamper', name: 'Assorted Mini Dry Cake Hamper', price: 1100, img: 'https://prime-c0.static.urbanpiper.com/cakeopera/2025-10/JoLOqZrMR23PU9C3sHY9z4V1t9OBaOBG6y2iwOJd.jpg', weight: 'Pack Of 4' },
+
+ ];
 
   // ===== Helpers =====
   function getCart(){ return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); }
