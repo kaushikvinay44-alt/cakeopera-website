@@ -7,7 +7,7 @@ const CART_KEY = 'cakeopera_cart_v1';
 
   // courier products - change / extend as required
   const COURIER_PRODUCTS = [
-    { id: 'Plum Cake', name: 'Plum Cake', price: 450, img: 'https://prime-c0.static.urbanpiper.com/cakeopera/2025-12/xqLDH6tU98tJg97Eub5igwbZbYW8mh6vLhx9C3QN.png', weight: '350 Gm' },
+    { id: 'Plum Cake', name: 'Plum Cake', price: 450, img: 'https://prime-c0.static.urbanpiper.com/cakeopera/2025-12/k5lfcFOKqVTsHUU0aR2q9A91jwWwqr80LrjTojaU.jpg', weight: '350 Gm' },
     { id: 'Date & Walnut Mini Cake', name: 'Date & Walnut Mini Cake', price: 280, img: 'https://prime-c0.static.urbanpiper.com/cakeopera/2025-11/fSsw3uvFCa1Ua8JzZwoEfABK0TeawHAZhelQzcor.jpg', weight: '350 Gm' },
     { id: 'Rich Plum cake Mini', name: 'Rich Plum cake Mini', price: 75, img: 'https://prime-c0.static.urbanpiper.com/cakeopera/2025-06/VYhm0bskSrR9ouLBeJAUlSgowYza6OOjb1PVKUUo.jpg', weight: '150 Gm' },
     { id: 'Banana Walnut Cake ', name: 'Banana Walnut Cake (400 Gm)', price: 480, img: 'https://prime-c0.static.urbanpiper.com/cakeopera/2025-11/EzQoBuScQhUGBKdxLMcmAfo0Eoil4YHRvf23KZYN.jpg', weight: '400 Gm' },
