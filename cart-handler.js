@@ -5,7 +5,7 @@
 const SERVER_BASE = 'https://cakeopera-backend.onrender.com';
 const CART_KEY = 'cakeopera_cart_v1';
 
-  // Example courier products - change / extend as required
+  // courier products - change / extend as required
   const COURIER_PRODUCTS = [
     { id: 'Plum Cake', name: 'Plum Cake', price: 450, img: 'https://prime-c0.static.urbanpiper.com/cakeopera/2025-12/xqLDH6tU98tJg97Eub5igwbZbYW8mh6vLhx9C3QN.png', weight: '350 Gm' },
     { id: 'Date & Walnut Mini Cake', name: 'Date & Walnut Mini Cake', price: 280, img: 'https://prime-c0.static.urbanpiper.com/cakeopera/2025-11/fSsw3uvFCa1Ua8JzZwoEfABK0TeawHAZhelQzcor.jpg', weight: '350 Gm' },
